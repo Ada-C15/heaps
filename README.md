@@ -29,3 +29,6 @@ The methods you will need to write are:
 The last method to write is `heapsort(list)` which takes an array and uses a `Heap` instance to sort the array.  We have discussed this method before.  It should look somewhat like insertion sort.  
 
 Make certain you also document the expected runtime of each method.  
+
+**Challenge** If you can, do this method in O(1) space complexity.
+
