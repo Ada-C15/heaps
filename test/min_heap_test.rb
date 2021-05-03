@@ -78,4 +78,26 @@ describe "Heap" do
   # Another assert
   expect(removed).must_equal "Pasta"
   end
+  
+  it "can work with 3 elements" do
+    # Arrange
+    heap.add(3, 3)
+    heap.add(6, 6)
+    heap.add(1, 1)
+
+    # Act
+    removed = heap.remove
+    # Assert
+    expect(removed).must_equal(1)
+
+    # Act
+    removed = heap.remove
+    # Assert
+    expect(removed).must_equal(3)
+
+    # Act
+    removed = heap.remove
+    # Assert
+    expect(removed).must_equal(6)
+  end  
 end
