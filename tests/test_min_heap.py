@@ -1,40 +1,39 @@
-require_relative "test_helper"
+import pytest
+from heaps.min_heap import MinHeap
 
-describe "Heap" do
-  let(:heap) {MinHeap.new}
-  it "can be created" do
-    
-    # Assert
-    expect(heap).must_be_instance_of MinHeap
-  end
+# Fixture to start each test with a new Heap
+@pytest.fixture()
+def heap() -> MinHeap:
+    return MinHeap()
 
-  it "can have nodes added" do
+def test_can_be_instantiated(heap):
+    assert isinstance(heap, MinHeap)
+
+def test_remove_on_empty_heap_returns_none(heap):
+    assert heap.remove() == None
+
+def test_can_add_nodes_to_heap(heap):
     # Arrange
     key = 5
     value = "Pasta"
 
-    # Assert
-    expect(heap).must_respond_to :add
+    # Act-assert (heap.add returns None)
+    assert heap.add(key, value) == None
 
-    # Act
-    heap.add(key, value)
-  end
-
-  it "adds nodes in a proper order" do
+def test_nodes_are_added_in_proper_order(heap):
     # Arrange
     heap.add(3, "Pasta")
     heap.add(6, "Soup")
     heap.add(1, "Pizza")
 
     # Act
-    output = heap.to_s
+    output = str(heap)
 
     # Assert
+    assert output == "[Pizza, Soup, Pasta]"
 
-    expect(output).must_equal "[Pizza, Soup, Pasta]"
-  end
 
-  it "adds nodes in a proper order with a lot of nodes" do
+def test_works_for_adding_nodes_in_proper_order_with_6_nodes(heap):
     # Arrange
     heap.add(3, "Pasta")
     heap.add(6, "Soup")
@@ -44,60 +43,24 @@ describe "Heap" do
     heap.add(57, "Cake")
 
     # Act
-    output = heap.to_s
+    output = str(heap)
 
     # Assert
+    assert output == "[Donuts, Pizza, Pasta, Soup, Cookies, Cake]"
 
-    expect(output).must_equal "[Donuts, Pizza, Pasta, Soup, Cookies, Cake]"
-  end
-
-  it "can remove nodes in the proper order" do
-   # Arrange
-   heap.add(3, "Pasta")
-   heap.add(6, "Soup")
-   heap.add(1, "Pizza")
-   heap.add(0, "Donuts")
-   heap.add(16, "Cookies")
-   heap.add(57, "Cake")
-
-   # Act
-   removed = heap.remove
-
-   # Assert
-   expect(removed).must_equal "Donuts"
-
-   # Another Act
-   removed = heap.remove
-
-   # Another assert
-   expect(removed).must_equal "Pizza"
-
-  # Another Act
-  removed = heap.remove
-
-  # Another assert
-  expect(removed).must_equal "Pasta"
-  end
-  
-  it "can work with 3 elements" do
+def test_it_can_remove_nodes_in_proper_order(heap):
     # Arrange
-    heap.add(3, 3)
-    heap.add(6, 6)
-    heap.add(1, 1)
+    heap.add(3, "Pasta")
+    heap.add(57, "Cake")
+    heap.add(6, "Soup")
+    heap.add(1, "Pizza")
+    heap.add(0, "Donuts")
+    heap.add(16, "Cookies")
+
 
     # Act
-    removed = heap.remove
-    # Assert
-    expect(removed).must_equal(1)
+    returned_items = ["Donuts", "Pizza", "Pasta", "Soup", "Cookies", "Cake"]
 
-    # Act
-    removed = heap.remove
-    # Assert
-    expect(removed).must_equal(3)
+    for item in returned_items:
+        assert heap.remove() == item
 
-    # Act
-    removed = heap.remove
-    # Assert
-    expect(removed).must_equal(6)
-  end  
-end
