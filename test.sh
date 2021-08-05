@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rake
+pytest -vv
