@@ -1,36 +1,17 @@
-require_relative "test_helper"
+from heaps.heap_sort import heap_sort
 
-xdescribe "heapsort" do
-  it "sorts an empty array" do
-    # Arrange 
-    list = []
+def test_it_sorts_an_empty_list():
+    assert heap_sort([]) == []
 
-    # Act
-    result = heapsort(list)
+def test_it_sorts_a_one_element_list():
+    assert heap_sort([5]) == [5]
 
-    # Assert
-    expect(result).must_equal []
-  end
-
-  it "can sort a 1-element array" do
-    # Arrange 
-    list = [5]
+def test_it_can_sort_a_5_element_list():
+    # Arrange
+    numbers = [5, 27, 3, 16, 50]
 
     # Act
-    result = heapsort(list)
+    result = heap_sort(numbers)
 
     # Assert
-    expect(result).must_equal [5]
-  end
-  
-  it "can sort a 5-element array" do
-    # Arrange 
-    list = [5, 27, 3, 16, -50]
-
-    # Act
-    result = heapsort(list)
-
-    # Assert
-    expect(result).must_equal [-50, 3, 5, 16, 27]
-  end  
-end
+    assert result == [3, 5, 16, 27, 50]
