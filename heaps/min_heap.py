@@ -1,6 +1,6 @@
 class HeapNode:
   
-    def initialize(self, key, value):
+    def __init__(self, key, value):
         self.key = key
         self.value = value
 
