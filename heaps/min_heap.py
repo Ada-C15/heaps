@@ -26,6 +26,7 @@ class MinHeap:
             value = key
 
         self.store.append(HeapNode(key, value))
+        self.heap_up(len(self.store) - 1)
 
 
     def remove(self):
