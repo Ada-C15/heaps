@@ -1,15 +1,30 @@
 class HeapNode:
-  
+
     def initialize(self, key, value):
         self.key = key
         self.value = value
-
 
 class MinHeap:
 
     def __init__(self):
         self.store = []
+        if not self.store:
+            self.root = None
+            
+        else:
+            self.root = self.store[0]
 
+        # children nodes?
+        # for i in range(len(self.store)):
+        #     left_child = i * 2 + 1
+        #     right_child = i * 2 + 2
+        #     left_parent = i % 2 - 1
+        
+        #     right_child = i * 2 + 2
+    
+
+    # def dict(self):
+        # return {'key': self.key, 'value': self.value}
 
     def add(self, key, value = None):
         """ This method adds a HeapNode instance to the heap
@@ -17,7 +32,23 @@ class MinHeap:
             Time Complexity: ?
             Space Complexity: ?
         """
-        pass
+        if value == None:
+            value = key
+        
+        if self.empty:
+            self.store = HeapNode(key, value)
+            return
+
+        # adding it to the end of the heap if heap not empty
+        self.store.append(HeapNode(key, value))
+
+        # # Compare the new node with it's parent
+        parent_node = self.root
+        # If they are out of order swap and heap-up
+        # using the parent's index number.
+        # Implementation not shown purposefully.
+        # self.heap_up(self.store.length - 1)
+
 
     def remove(self):
         """ This method removes and returns an element from the heap
@@ -42,7 +73,7 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        pass
+        return not self.store
 
 
     def heap_up(self, index):
@@ -52,7 +83,12 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        pass
+        # # Compare the new node with it's parent
+        if self.
+        # If they are out of order swap and heap-up
+        # using the parent's index number.
+        # Implementation not shown purposefully.
+        # self.heap_up(self.store.length - 1)
 
     def heap_down(self, index):
         """ This helper method takes an index and 
