@@ -63,6 +63,7 @@ class MinHeap:
 
 
     def heap_up(self, index):
+        
         """ This helper method takes an index and
             moves it up the heap, if it is less than it's parent node.
             It could be **very** helpful for the add method.
@@ -80,11 +81,12 @@ class MinHeap:
         
 
     def heap_down(self, index):
+        #if we are passed zero it may be causing an error
         """ This helper method takes an index and 
             moves it up the heap if it's smaller
             than it's parent node.
         """
-        children = index * 2
+        children = index * 2 +1
         lefty = children
         poncho = children + 1
         if lefty < len(self.store):
