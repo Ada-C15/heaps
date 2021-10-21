@@ -5,7 +5,7 @@ def heap_sort(list):
         sources: 
         https://towardsdatascience.com/data-structure-heap-23d4c78a6962
         Time Complexity:  O(n log n)?
-        Space Complexity: O(n log n) bc not in place? O(1) if I had figured out how to do it correctly
+       
     """
     i = 0
     sorted = []
