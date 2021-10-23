@@ -60,7 +60,8 @@ class MinHeap:
     def heap_down(self, index):
         """ This helper method takes an index and 
             moves the corresponding element down the heap if it's 
-            larger than either of its children.
+            larger than either of its children and continues until
+            the heap property is reestablished.
         """
         pass
 
