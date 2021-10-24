@@ -53,7 +53,7 @@ class MinHeap:
     def empty(self):
         """ This method returns true if the heap is empty
             Time complexity: 0(1)
-            Space complexity: 0(n)
+            Space complexity: 0(1)
         """
         if len(self.store) == 0:
             return True
