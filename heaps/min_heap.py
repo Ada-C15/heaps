@@ -31,16 +31,14 @@ class MinHeap:
             Time Complexity: ?
             Space Complexity: ?
         """
-        if self.store.empty:
+        if self.empty():
             return None
         
-        last_index = self.store - 1
+        last_index = len(self.store) - 1
         self.swap(0, last_index)
-        result = self.store.pop()
-
-        while not self.store.empty:
-            self.heap_down(0)
-            result.value
+        removedItem = self.store.pop(last_index)
+        self.heap_down(0)
+        return removedItem.value
 
     
     def __str__(self):
@@ -56,7 +54,7 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        pass
+        return len(self.store) == 0
 
 
     def heap_up(self, index):
@@ -66,7 +64,6 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        
         if index == 0:
             #base case
             return self.store
@@ -88,17 +85,37 @@ class MinHeap:
 
     def heap_down(self, index):
         """ This helper method takes an index and 
-            moves it up the heap if it's smaller
+            moves it down the heap if it's smaller
             than it's parent node.
         """
-        child_index = index * 2
-
-        #return if you reach the bottom of the tree
-        if child_index > self.store.length -1:
+        # index is the last node so return immediately
+        # as there is nothing to heap-down further
+        if (index >= len(self.store)-1):
             return
-        
-    
 
+        leftChildIndex = index * 2 + 1
+        rightChildIndex = index * 2 + 2
+
+        # gets the index of the child which has smallest key
+        indexOfMinKeyChild = self.getIndexOfMinKeyNode(leftChildIndex, rightChildIndex)
+
+        # if the current node key is larger than the min child node 
+        # then swap current node with min child node
+        if (self.store[index].key > self.store[indexOfMinKeyChild].key):
+            self.swap(index, indexOfMinKeyChild)
+            self.heap_down(indexOfMinKeyChild)
+
+    def getIndexOfMinKeyNode(self, leftChildIndex, rightChildIndex):
+        
+        if (leftChildIndex >= len(self.store)):
+            return rightChildIndex
+        
+        if (rightChildIndex >= len(self.store)):
+            return leftChildIndex
+
+        if (self.store[leftChildIndex].key <= self.store[rightChildIndex].key):
+            return leftChildIndex
+        return rightChildIndex
 
     
     def swap(self, index_1, index_2):
