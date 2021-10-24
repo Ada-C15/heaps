@@ -1,4 +1,3 @@
-from heaps.heap_sort import heap_sort
 
 class HeapNode:
   
@@ -66,7 +65,7 @@ class MinHeap:
         """
         if index == 0:
             #base case
-            return self.store
+            return
         
         # Check if the index is odd or even to see whether it is left or right node
         # Find the parent index for the given index
@@ -77,6 +76,9 @@ class MinHeap:
             #left node parent
             parent_index = int((index - 1) / 2)
         
+        if(parent_index < 0):
+            return
+
         # If the current key is lower than the parent swap
         if self.store[parent_index].key > self.store[index].key:
             self.swap(parent_index, index)
@@ -96,6 +98,9 @@ class MinHeap:
         leftChildIndex = index * 2 + 1
         rightChildIndex = index * 2 + 2
 
+        if (leftChildIndex > len(self.store)-1):
+            return
+
         # gets the index of the child which has smallest key
         indexOfMinKeyChild = self.getIndexOfMinKeyNode(leftChildIndex, rightChildIndex)
 
@@ -107,10 +112,7 @@ class MinHeap:
 
     def getIndexOfMinKeyNode(self, leftChildIndex, rightChildIndex):
         
-        if (leftChildIndex >= len(self.store)):
-            return rightChildIndex
-        
-        if (rightChildIndex >= len(self.store)):
+        if (rightChildIndex > len(self.store)-1):
             return leftChildIndex
 
         if (self.store[leftChildIndex].key <= self.store[rightChildIndex].key):
