@@ -63,4 +63,3 @@ def test_it_can_remove_nodes_in_proper_order(heap):
 
     for item in returned_items:
         assert heap.remove() == item
-
