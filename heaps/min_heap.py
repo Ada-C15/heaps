@@ -20,7 +20,7 @@ class MinHeap:
     def add(self, key, value=None):
         """ This method adds a HeapNode instance to the heap
             If value == None the new node's value should be set to key
-            Time Complexity: O(n)
+            Time Complexity:  O(log n)
             Space Complexity: O(1)
         """
         if value == None:
