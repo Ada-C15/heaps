@@ -11,13 +11,10 @@ class HeapNode:
     def __repr__(self):
         return str(self.value)
 
-
-
 class MinHeap:
 
     def __init__(self):
         self.store = []
-
 
     def add(self, key, value = None):
         """ This method adds a HeapNode instance to the heap
@@ -25,7 +22,11 @@ class MinHeap:
             Time Complexity: O(log n)
             Space Complexity: O(log n)
         """
-        new_heapnode = HeapNode(key, value)
+        if (value == None):
+            new_heapnode = HeapNode(key, key)
+        else:
+            new_heapnode = HeapNode(key, value)
+            
         self.store.append(new_heapnode)
         index = len(self.store) - 1
         self.heap_up(index)
@@ -34,8 +35,8 @@ class MinHeap:
     def remove(self):
         """ This method removes and returns an element from the heap
             maintaining the heap structure
-            Time Complexity: ?
-            Space Complexity: ?
+            Time Complexity: O(log n)
+            Space Complexity: O(1)
         """
         if self.empty():
             return None
@@ -70,8 +71,8 @@ class MinHeap:
             property is reestablished.
             
             This could be **very** helpful for the add method.
-            Time complexity: ?
-            Space complexity: ?
+            Time complexity: O(log n)
+            Space complexity: O(1)
         """
         if index == 0:
             #base case
