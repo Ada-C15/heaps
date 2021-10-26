@@ -15,7 +15,7 @@ def heap_sort(list):
     for item in list:
         heap_store.add(item)
 
-    while heap_store.size() > 0:
+    while not heap_store.empty():
         item = heap_store.remove()
         sorted_list.append(int(item))
 

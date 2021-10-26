@@ -63,15 +63,6 @@ class MinHeap:
         """
         parent_node = (index-1) // 2
 
-        # while self.store[index].key < self.store[parent_node].key:
-        #     self.swap(index, parent_node)
-        #     index = parent_node
-        #     if index == 0:
-        #         break
-        #     parent_node = (index-1)//2
-
-
-        # Recursion
         if index:
             if self.store[index].key < self.store[parent_node].key:
                 self.swap(index, parent_node)
@@ -84,26 +75,6 @@ class MinHeap:
             than it's parent node.
         """
 
-        # min_child = 0
-        # while (2 * index) + 1 < len(self.store):
-        #     left_child = 2 * index + 1
-        #     right_child = 2 * index + 2
-
-        #     if right_child >= len(self.store):
-        #         min_child = left_child
-        #     elif self.store[left_child].key < self.store[right_child].key:
-        #         min_child = left_child
-        #     else:
-        #         min_child = right_child
-
-        #     if self.store[index].key < self.store[min_child].key:
-        #         break
-
-        #     self.swap(index, min_child)
-        #     index = min_child
-
-
-        # Recursion
         left_child = 2 * index + 1
         right_child = 2 * index + 2
 
@@ -130,5 +101,3 @@ class MinHeap:
         self.store[index_1] = self.store[index_2]
         self.store[index_2] = temp
 
-    def size(self):
-        return len(self.store)
