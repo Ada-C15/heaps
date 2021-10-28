@@ -48,6 +48,25 @@ def test_works_for_adding_nodes_in_proper_order_with_6_nodes(heap):
     # Assert
     assert output == "[Donuts, Pizza, Pasta, Soup, Cookies, Cake]"
 
+def test_works_for_adding_nodes_in_proper_order_with_6_nodes_2(heap):
+    # Arrange
+    # heap.add(3)
+    # heap.add(6)
+    # heap.add(1)
+    # heap.add(0)
+    # heap.add(16)
+    # heap.add(57)
+
+    numbers = [5, 27, 3, 16, 50]
+    for num in numbers:
+        heap.add(num)
+    # Act
+    output = str(heap)
+
+    # Assert
+    # assert output == "[0, 1, 3, 6, 16, 57]"
+    assert output == "[3, 16, 5, 27, 50]"
+
 def test_it_can_remove_nodes_in_proper_order(heap):
     # Arrange
     heap.add(3, "Pasta")
