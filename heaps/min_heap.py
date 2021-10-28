@@ -56,7 +56,7 @@ class MinHeap:
             Time complexity: O(1)
             Space complexity: O(1)
         """
-        return self.size() == 0
+        return len(self.store) == 0
 
     def heap_up(self, index):
         """ This helper method takes an index and
@@ -88,9 +88,7 @@ class MinHeap:
 
         if left_child < len(self.store):
 
-            if right_child >= len(self.store):
-                min_child = left_child
-            elif self.store[left_child].key < self.store[right_child].key:
+            if right_child >= len(self.store) or self.store[left_child].key < self.store[right_child].key:
                 min_child = left_child
             else:
                 min_child = right_child
