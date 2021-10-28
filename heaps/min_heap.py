@@ -54,7 +54,7 @@ class MinHeap:
         """This method removes and returns an element from the heap
         maintaining the heap structure
         Time Complexity: O(log n)
-        Space Complexity: ?
+        Space Complexity: O(1)
         """
         if self.empty():  # heap is empty, return None
             return None
@@ -82,8 +82,8 @@ class MinHeap:
         """This helper method takes an index and moves the corresponding 
         element up the heap, if it is less than it's parent node until 
         the Heap property is reestablished.
-        Time complexity: ?
-        Space complexity: ?
+        Time complexity: O(log n)
+        Space complexity: O(1)
         """
         parent_index = self.find_parent_index(index)
         parent = self.store[parent_index]
@@ -91,12 +91,7 @@ class MinHeap:
 
         while new_node.key < parent.key and index > 0:  
             self.swap(parent_index, index)  # swap of NODES 
-                    # index_1,     index_2
-            # temp_par = parent_index
-            # parent_index = index 
-            # index = temp_par
             index = parent_index  # update index - new child
-            # recalculation of parent index
             parent_index = self.find_parent_index(index) 
             parent = self.store[parent_index]
 
@@ -104,6 +99,8 @@ class MinHeap:
         """This helper method takes an index and moves the corresponding 
         element down the heap if it's larger than either of its children 
         and continues until the heap property is reestablished."""
+        # Time complexity: O(log n)
+        # Space complexity: O(1)
 
         # THERE are NO CHILDREN
         if not self.left_child_exists(index):
@@ -142,11 +139,11 @@ class MinHeap:
                     return
 
             elif not self.left_child_exists(index):
-                # check that this is not out of range none will always 
-                # be false
+                # check that this is not out of range 
+                # none will always be false
                 return
 
-    def swap(self, index_1, index_2):  # index_1= parent, i_2 = index
+    def swap(self, index_1, index_2):
         """Swaps two elements in self.store
         at index_1 and index_2
         used for heap_up & heap_down
