@@ -30,6 +30,7 @@ def test_nodes_are_added_in_proper_order(heap):
     output = str(heap)
 
     # Assert
+
     assert output == "[Pizza, Soup, Pasta]"
 
 
@@ -59,8 +60,11 @@ def test_it_can_remove_nodes_in_proper_order(heap):
 
 
     # Act
+    # output = str(heap)
     returned_items = ["Donuts", "Pizza", "Pasta", "Soup", "Cookies", "Cake"]
 
     for item in returned_items:
         assert heap.remove() == item
+
+    # assert output == ["Donuts", "Pizza", "Pasta", "Soup", "Cookies", "Cake"]
 
