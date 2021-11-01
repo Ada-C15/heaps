@@ -3,8 +3,8 @@ from min_heap import HeapNode
 
 def heap_sort(list):
     """ This method uses a heap to sort an array.
-        Time Complexity:  ?
-        Space Complexity: ?
+        Time Complexity:  O(n logn)
+        Space Complexity: 0(1)
     """
     
     heap = MinHeap()   
@@ -12,7 +12,7 @@ def heap_sort(list):
     if not list:
         return[]
     # want smallest number in root, index 0
-    for num in list:
+    for num in list: 
         heap.add(num)
         #heap.add(HeapNode(index,list[index])) <-- dont understand why we dont make instances of nodes?
         print(heap)
