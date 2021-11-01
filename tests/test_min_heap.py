@@ -1,5 +1,5 @@
 import pytest
-from heaps.min_heap import MinHeap
+from min_heap import MinHeap
 
 # Fixture to start each test with a new Heap
 @pytest.fixture()
