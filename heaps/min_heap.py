@@ -21,8 +21,11 @@ class MinHeap:
     def add(self, key, value = None):
         """ This method adds a HeapNode instance to the heap
             If value == None the new node's value should be set to key
-            Time Complexity: ?
-            Space Complexity: ?
+            
+            Time Complexity: Adding an element to the heap is o(n) for the actual addition of the element to the end of the array.
+            It is O(log n) for the heap_up process as it traverses the heap so overall it is a O(log n) operation. 
+    
+            Space Complexity: The space complexity is constant O(n) because only one new node is added at a time.
         """
         if value == None:
             value = key
@@ -37,8 +40,14 @@ class MinHeap:
     def remove(self):
         """ This method removes and returns an element from the heap
             maintaining the heap structure
-            Time Complexity: ?
-            Space Complexity: ?
+            
+            Time Complexity: Removing a node from the heap is O(n) for the process of swapping and popping it off the end. 
+            But it increases to O(log n) for the process of traversing the heap to move the swapped root back down to it appropriate place in the heap. 
+            Overall time complexity ios then O(log n).
+            
+            Space Complexity: The space complexity is constant O(1) becuase one element is popped off and saved to the variable removed_node
+            each time a node is removed. 
+
         """
         if self.empty():
             return None
@@ -69,8 +78,11 @@ class MinHeap:
 
     def empty(self):
         """ This method returns true if the heap is empty
-            Time complexity: ?
-            Space complexity: ?
+
+            Time complexity: O(1) constant because the method only needs to calculate the length of the array
+            each time to perform its function and the en() function in Python runs in O(1) complexity.
+
+            Space complexity: O(1) beacause only one new variable (heap_size) is created each time the function is called. 
         """
         heap_size = len(self.store)
 
@@ -86,8 +98,10 @@ class MinHeap:
             property is reestablished.
             
             This could be **very** helpful for the add method.
-            Time complexity: ?
-            Space complexity: ?
+
+            Time complexity: O(log n) because we do max 1 swap at each level of the heap.
+            
+            Space complexity: O(1) because a constant number (3) of variables are created in space each time. 
         """
         current_index = index
         parent_index = (index-1)//2
