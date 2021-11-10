@@ -1,5 +1,5 @@
 class HeapNode:
-  
+
     def __init__(self, key, value):
         self.key = key
         self.value = value
@@ -24,7 +24,11 @@ class MinHeap:
             Time Complexity: ?
             Space Complexity: ?
         """
-        pass
+        if value == None:
+            value = key
+        self.store.append(HeapNode(key, value))
+        self.heap_up(len(self.store) - 1)
+
 
     def remove(self):
         """ This method removes and returns an element from the heap
@@ -32,10 +36,14 @@ class MinHeap:
             Time Complexity: ?
             Space Complexity: ?
         """
-        pass
+        if self.empty():
+            return None
+        self.swap(0, len(self.store) - 1)
+        removal = self.store.pop()
+        self.heap_down(0)
+        return removal.value
 
 
-    
     def __str__(self):
         """ This method lets you print the heap, when you're testing your app.
         """
@@ -49,7 +57,9 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        pass
+        if not self.store:
+            return True
+        return False
 
 
     def heap_up(self, index):
@@ -62,7 +72,26 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        pass
+        current_index = index
+        parent_index  = (current_index - 1)//2
+        while self.store[current_index].key < self.store[parent_index].key:
+            self.swap (parent_index, current_index)
+            current_index = parent_index
+            if current_index == 0:
+                break
+            parent_index = (current_index - 1)//2
+
+
+    def find_smallest(self, index1, index2):
+        if index1 > len(self.store) - 1:
+            return None
+        elif index2 > len(self.store) - 1:
+            smallest = index1
+        elif self.store[index1].key < self.store[index2].key:
+            smallest = index1
+        else:
+            smallest = index2
+        return smallest
 
     def heap_down(self, index):
         """ This helper method takes an index and 
@@ -70,9 +99,23 @@ class MinHeap:
             larger than either of its children and continues until
             the heap property is reestablished.
         """
-        pass
+        current_index = index
+        left_child  = current_index * 2 + 1
+        right_child = current_index * 2 + 2
+        smallest = self.find_smallest(left_child, right_child)
+        if not smallest:
+            return None
 
-    
+        while self.store[current_index].key > self.store[smallest].key:
+            self.swap(current_index, smallest)
+            current_index = smallest
+            left_child = current_index * 2 + 1
+            right_child = current_index * 2 + 2
+            smallest = self.find_smallest(left_child, right_child)
+            if not smallest:
+                return None
+
+
     def swap(self, index_1, index_2):
         """ Swaps two elements in self.store
             at index_1 and index_2
