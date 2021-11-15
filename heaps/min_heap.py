@@ -39,18 +39,23 @@ class MinHeap:
     def remove(self):
         """ This method removes and returns a smollest_frogge from the heap
             maintaining the heap structure
-            Time Complexity: O(log n)
+            Time Complexity: O(log n) - to delete an element, have to shift the entire tree upwards which requires traversing the tree height
             Space Complexity: 0(1)
         """
+        # return None if heap is empty 
         if len(self.store) == 0:
             return
 
+        # Since this is a min heap, the smallest frogge will be at the root (index 0).
+        # Take the bottom level’s right most node (the last element in the array) and move it to top, replacing the deleted node.
         self.swap(0, len(self.store)-1)
 
         smollest_frogge = self.store.pop()
 
+        # Comapres the new root to its children, and if it is larger than either child, swaps the item with the smaller of the two children
         self.heap_down(0)
 
+        # return the value of the popped frogge:
         return smollest_frogge.value
 
 
@@ -76,18 +81,19 @@ class MinHeap:
             it is less than its parent node until the Heap
             property is reestablished.
 
-            Time complexity: O(log n)
+            Time complexity: O(log n) - because worst case, have to traverse the height of the tree which is of log n height (if heaping up all the way to top)
             Space complexity: 0(1)
         """
         if index == 0:
             return index
 
+        # the parent of any node in an array is at the floor (i-1)/2 index 
         parent_node = (index - 1) // 2
 
+        # Look at the parent node. If the parent is greater than the node, swap them and move on until the base case has been reached, i.e. where index == 0 and we've reached the top of the heap 
         if self.store[parent_node].key > self.store[index].key:
             self.swap(parent_node, index)
             self.heap_up(parent_node)
-
 
 
     def heap_down(self, index):
@@ -97,21 +103,21 @@ class MinHeap:
             the heap property is reestablished.
         """
         frogge_heap = self.store
-        l_child_frogge = (2*index) + 1
-        r_child_frogge = (2*index) + 2
+        l_child_frogge_index = (2*index) + 1
+        r_child_frogge_index = (2*index) + 2
 
-        if l_child_frogge < len(frogge_heap):
-            if r_child_frogge < len(frogge_heap):
-                if frogge_heap[l_child_frogge].key < frogge_heap[r_child_frogge].key:
-                    smoller_frogge = l_child_frogge
+        if l_child_frogge_index < len(frogge_heap):
+            if r_child_frogge_index < len(frogge_heap):
+                if frogge_heap[l_child_frogge_index].key < frogge_heap[r_child_frogge_index].key:
+                    smoller_frogge_index = l_child_frogge_index
                 else:
-                    smoller_frogge = r_child_frogge
+                    smoller_frogge_index = r_child_frogge_index
             else:
-                smoller_frogge = l_child_frogge
+                smoller_frogge_index = l_child_frogge_index
 
-            if frogge_heap[index].key > frogge_heap[smoller_frogge].key:
-                self.swap(index, smoller_frogge)
-                self.heap_down(smoller_frogge)
+            if frogge_heap[index].key > frogge_heap[smoller_frogge_index].key:
+                self.swap(index, smoller_frogge_index)
+                self.heap_down(smoller_frogge_index)
     
     def swap(self, index_1, index_2):
         """ Swaps two elements in self.store
