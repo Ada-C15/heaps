@@ -22,18 +22,32 @@ class MinHeap:
         """ This method adds a HeapNode instance to the heap
             If value == None the new node's value should be set to key
             Time Complexity: ?
-            Space Complexity: ?
+            Space Complexity: o(log n)
         """
-        pass
+
+        if value == None:
+            value = key
+
+        node = HeapNode(key, value)
+
+        self.store.append(node)
+
+        self.heap_up(len(self.store) - 1)
 
     def remove(self):
         """ This method removes and returns an element from the heap
             maintaining the heap structure
             Time Complexity: ?
-            Space Complexity: ?
+            Space Complexity: o(log n)
         """
-        pass
+        if self.empty():
+            return None
 
+        self.swap(0, len(self.store)-1)
+        min = self.store.pop()
+        self.heap_down(0)
+
+        return min.value
 
     
     def __str__(self):
@@ -49,7 +63,7 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        pass
+        return self.store == []
 
 
     def heap_up(self, index):
@@ -62,7 +76,16 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        pass
+        if index == 0: return None
+        
+        parent_index = ((index - 1) // 2)
+
+        while self.store[parent_index].key > self.store[index].key:
+            self.swap(parent_index, index)
+            self.heap_up(parent_index)
+            
+
+
 
     def heap_down(self, index):
         """ This helper method takes an index and 
@@ -70,8 +93,28 @@ class MinHeap:
             larger than either of its children and continues until
             the heap property is reestablished.
         """
-        pass
 
+        if (index >= len(self.store)-1):
+            return
+
+        child_index = (2 * index + 2)
+
+        middle_child_index = (2 * index + 1)
+
+        if (middle_child_index > len(self.store)-1):
+            return
+
+        if middle_child_index < len(self.store):
+            if child_index >= len(self.store) or self.store[middle_child_index].key < self.store[child_index].key: 
+                    down = middle_child_index
+            else:
+                    down = child_index 
+
+        if self.store[index].key > self.store[down].key:
+            self.swap(index, down)
+            self.heap_down(down)
+
+    
     
     def swap(self, index_1, index_2):
         """ Swaps two elements in self.store
