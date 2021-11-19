@@ -1,8 +1,15 @@
 class HeapNode:
 
-    def initialize(self, key, value):
+    def __init__(self, key, value):
         self.key = key
         self.value = value
+
+    def __str__(self):
+        return str(self.value)
+
+    def __repr__(self):
+        return str(self.value)
+
 
 
 class MinHeap:
@@ -59,6 +66,7 @@ class MinHeap:
             It could be **very** helpful for the add method.
             Time complexity: O(n)
             Space complexity: O(1)
+           
         """
         if index == 0:
             # base case
@@ -83,8 +91,9 @@ class MinHeap:
 
     def heap_down(self, index):
         """ This helper method takes an index and 
-            moves it up the heap if it's smaller
-            than it's parent node.
+            moves the corresponding element down the heap if it's 
+            larger than either of its children and continues until
+            the heap property is reestablished.
         """
         # grabbing minimum
         min_child_index = 2 * index + 1
