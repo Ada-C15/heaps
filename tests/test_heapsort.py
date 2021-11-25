@@ -1,3 +1,6 @@
+"""
+O(n log n)
+"""
 from heaps.heap_sort import heap_sort
 
 def test_it_sorts_an_empty_list():
