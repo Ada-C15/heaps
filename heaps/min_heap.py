@@ -24,7 +24,7 @@ class MinHeap:
             Space Complexity: O(1)
         """
         if value == None:
-            self.value = self.key
+            value = key
         
         node = HeapNode(key, value)
         self.store.append(node)
@@ -69,8 +69,8 @@ class MinHeap:
             property is reestablished.
             
             This could be **very** helpful for the add method.
-            Time complexity: ?
-            Space complexity: ?
+            Time complexity: O(log n)
+            Space complexity: O(1)
         """
         if index == 0:
             return index
