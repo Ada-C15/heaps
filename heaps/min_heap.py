@@ -76,7 +76,8 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        if index == 0: return None
+        if index == 0: 
+            return None
         
         parent_index = ((index - 1) // 2)
 
@@ -97,18 +98,18 @@ class MinHeap:
         if (index >= len(self.store)-1):
             return
 
-        child_index = (2 * index + 2)
+        left = (2 * index + 2)
 
-        middle_child_index = (2 * index + 1)
+        right = (2 * index + 1)
 
-        if (middle_child_index > len(self.store)-1):
+        if (right > len(self.store)-1):
             return
 
-        if middle_child_index < len(self.store):
-            if child_index >= len(self.store) or self.store[middle_child_index].key < self.store[child_index].key: 
-                    down = middle_child_index
+        if right < len(self.store):
+            if left >= len(self.store) or self.store[right].key < self.store[left].key: 
+                    down = right
             else:
-                    down = child_index 
+                    down = left 
 
         if self.store[index].key > self.store[down].key:
             self.swap(index, down)
