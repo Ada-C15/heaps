@@ -1,23 +1,23 @@
+from heaps.min_heap import *
+
+
 
 def heap_sort(list):
     """ This method uses a heap to sort an array.
-        Time Complexity:  ?
-        Space Complexity: ?
+        Time Complexity:  o.n
+        Space Complexity: o.1
     """
     
-    if not list: 
-        return []
+    heap = MinHeap()
 
+    list = [heap.add(num) for num in list]
     i = 0
+    while not heap.empty():
 
-    heap_list = []
-
-    while list:
-        smallest = min(list)
-        heap_list.append(smallest)
-        list.remove(smallest)
-    
-    return heap_list
+        list[i] = heap.remove()
+        i+=1
+     
+    return list
 
     
     
