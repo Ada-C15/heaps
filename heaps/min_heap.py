@@ -35,9 +35,11 @@ class MinHeap:
         if value == None:
             value = key
         node = HeapNode(key, value)
-        self.store.append(node)
+        
          # Need to increment size  
         self.size +=1
+        self.store.insert(self.size, node)
+        
         # use self when referring to method or attribute of the class
         self.heap_up(self.size-1)
         # self.heap_up(len(self.store)-1)
@@ -49,15 +51,24 @@ class MinHeap:
             Time Complexity: ?
             Space Complexity: ?
         """
+
+        # take copy first
+        # copy last one to position 1
+        # modify size 
+        #heapify
         # if len(self.store)== 0:
         #     return None
         if self.empty() == True:
             return None
-        self.swap(0,len(self.store) -1)
-        min = self.store.pop()
-        self.heap_down(0)
+        # self.swap(0,len(self.store) -1)
+        
+        min = self.store[self.FRONT]
 
-        return min
+        self.store[self.FRONT] = self.store[self.size-1]
+        self.size -= 1
+        self.heap_down(self.FRONT)
+        # min returns object we need it to return value min.value
+        return min.value
 
 
 
@@ -95,7 +106,10 @@ class MinHeap:
     # at pos
 
     def rightChild(self, pos):
-        return 2 * pos + 1
+        child_position = 2 * pos + 1
+        if child_position < self.size:
+            return child_position
+        return None
 
     # Function that returns true if the passed
     # node is a leaf node if it is leaf node (no left and right children) then it does not have children, it is not a parent
@@ -137,23 +151,23 @@ class MinHeap:
         """
         # If the node is a non-leaf node and greater
         # than any of its child -- if it is a parent then
+        #check right child if exists and check it's index and see if it is greater than or = the store.size 
         if not self.isLeaf(index):
-            if (self.store[index].key > self.store[self.leftChild(index)].key 
-                #check right child if exists and check it's index and see if it is greater than or = the store.size 
-            or if ! (self.store[index].key > self.store[self.leftChild(index)].key 
-                    
+            if self.rightChild(index) != None:
 
+                if (self.store[index].key > self.store[self.leftChild(index)].key or self.store[index].key > self.store[self.rightChild(index)].key):
+                
                 # Swap with the left child and heapify
                 # the left child
-                if self.store[self.leftChild(index)].key < self.store[self.rightChild(index)].key:
-                    self.swap(index, self.leftChild(index))
-                    self.heap_down(self.leftChild(index))
+                    if self.store[self.leftChild(index)].key < self.store[self.rightChild(index)].key:
+                        self.swap(index, self.leftChild(index))
+                        self.heap_down(self.leftChild(index))
 
-                # Swap with the right child and heapify
-                # the right child
-                else:
-                    self.swap(index, self.rightChild(index))
-                    self.heap_down(self.rightChild(index))
+                    # Swap with the right child and heapify
+                    # the right child
+                    else:
+                        self.swap(index, self.rightChild(index))
+                        self.heap_down(self.rightChild(index))
 
 
 

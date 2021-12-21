@@ -12,13 +12,13 @@ def test_can_be_instantiated(heap):
 def test_remove_on_empty_heap_returns_none(heap):
     assert heap.remove() == None
 
-# def test_can_add_nodes_to_heap(heap):
-#     # Arrange
-#     key = 5
-#     value = "Pasta"
+def test_can_add_nodes_to_heap(heap):
+    # Arrange
+    key = 5
+    value = "Pasta"
 
-#     # Act-assert (heap.add returns None)
-#     assert heap.add(key, value) == None
+    # Act-assert (heap.add returns None)
+    assert heap.add(key, value) == None
 
 def test_nodes_are_added_in_proper_order(heap):
     # Arrange
@@ -63,4 +63,7 @@ def test_it_can_remove_nodes_in_proper_order(heap):
 
     for item in returned_items:
         assert heap.remove() == item
+        # For more debugging
+        # check = heap.remove()
+        # assert check == item
 
