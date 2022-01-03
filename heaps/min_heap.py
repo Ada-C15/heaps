@@ -34,8 +34,8 @@ class MinHeap:
     def remove(self):
         """ This method removes and returns an element from the heap
             maintaining the heap structure
-            Time Complexity: 
-            Space Complexity: ?
+            Time Complexity: O(log n)
+            Space Complexity: O(1)
         """
         if self.empty():
             return None
@@ -55,8 +55,8 @@ class MinHeap:
 
     def empty(self):
         """ This method returns true if the heap is empty
-            Time complexity: ?
-            Space complexity: ?
+            Time complexity: O(1)
+            Space complexity: O(1)
         """
         if len(self.store) == 0:
             return True
@@ -67,8 +67,8 @@ class MinHeap:
         """ This helper method takes an index and
             moves it up the heap, if it is less than it's parent node.
             It could be **very** helpful for the add method.
-            Time complexity: O(log n)?
-            Space complexity: O(1)?
+            Time complexity: O(log n)
+            Space complexity: O(1)
         """
         if index == 0:
             return
