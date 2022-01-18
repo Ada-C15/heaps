@@ -21,18 +21,32 @@ class MinHeap:
     def add(self, key, value = None):
         """ This method adds a HeapNode instance to the heap
             If value == None the new node's value should be set to key
-            Time Complexity: ?
-            Space Complexity: ?
+            Time Complexity: O(log n)
+            Space Complexity: O(log n)
         """
-        pass
+        if not value:
+            new_heapnode = HeapNode(key, key)
+        else:
+            new_heapnode = HeapNode(key, value)
+        self.store.append(new_heapnode)
+        index = len(self.store) - 1
+        self.heap_up(index)
+        return None
 
     def remove(self):
         """ This method removes and returns an element from the heap
             maintaining the heap structure
-            Time Complexity: ?
-            Space Complexity: ?
+            Time Complexity: O(log n)
+            Space Complexity: O(1)
         """
-        pass
+        if self.empty():
+            return None
+
+        last_index = len(self.store) - 1
+        self.swap(0, last_index)
+        node_to_remove = self.store.pop(last_index)
+        self.heap_down(0)
+        return node_to_remove.value
 
 
     
@@ -49,7 +63,7 @@ class MinHeap:
             Time complexity: ?
             Space complexity: ?
         """
-        pass
+        return len(self.store) == 0
 
 
     def heap_up(self, index):
@@ -59,10 +73,17 @@ class MinHeap:
             property is reestablished.
             
             This could be **very** helpful for the add method.
-            Time complexity: ?
-            Space complexity: ?
+            Time complexity: O(log n)
+            Space complexity: O(n)
         """
-        pass
+        if index == 0:
+            return index
+
+        parent_node = (index - 1) // 2
+        current_nodes = self.store
+        if current_nodes[parent_node].key > current_nodes[index].key:
+            self.swap(parent_node, index)
+            self.heap_up(parent_node)
 
     def heap_down(self, index):
         """ This helper method takes an index and 
@@ -70,8 +91,22 @@ class MinHeap:
             larger than either of its children and continues until
             the heap property is reestablished.
         """
-        pass
+        current_nodes = self.store
+        left_child_index = index * 2 + 1
+        right_child_index = index * 2 + 2
 
+        if left_child_index < len(self.store):
+            if right_child_index < len(current_nodes):
+                if current_nodes[left_child_index].key < current_nodes[right_child_index].key:
+                    node = left_child_index
+                else:
+                    node = right_child_index
+            else:
+                node = left_child_index
+
+            if current_nodes[index].key > current_nodes[node].key:
+                self.swap(index, node)
+                self.heap_down(node)
     
     def swap(self, index_1, index_2):
         """ Swaps two elements in self.store
