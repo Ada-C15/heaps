@@ -23,7 +23,7 @@ class MinHeap:
     def __init__(self):
         self.store = []
         self.size = 0
-        self.FRONT = 1
+        self.FRONT = 0
 
 
     def add(self, key, value = None):
@@ -35,13 +35,16 @@ class MinHeap:
         if value == None:
             value = key
         node = HeapNode(key, value)
+
+    
         
          # Need to increment size  
-        self.size +=1
         self.store.insert(self.size, node)
+        self.size +=1
         
         # use self when referring to method or attribute of the class
         self.heap_up(self.size-1)
+        #self.heap_up(self.size-1)
         # self.heap_up(len(self.store)-1)
          
 
@@ -93,20 +96,27 @@ class MinHeap:
     # parent for the node currently
     # at pos
     def parent(self, pos):
-        return pos//2
+        if pos == 0:
+            return 0
+
+        return (pos-1)//2
 
     # Function to return the position of
     # the left child for the node currently
     # at pos
     def leftChild(self, pos):
-        return 2 * pos
+        child_position =  2 * pos + 1
+        if child_position < self.size:
+            return child_position
+        return None
 
     # Function to return the position of
     # the right child for the node currently
     # at pos
 
     def rightChild(self, pos):
-        child_position = 2 * pos + 1
+        child_position = 2 * pos + 2
+        #maybe add to left child
         if child_position < self.size:
             return child_position
         return None
@@ -114,7 +124,7 @@ class MinHeap:
     # Function that returns true if the passed
     # node is a leaf node if it is leaf node (no left and right children) then it does not have children, it is not a parent
     def isLeaf(self, pos):
-        if pos >= (self.size//2) and pos <= self.size:
+        if pos >= (self.size//2) and pos < self.size:
             return True
         return False
 
@@ -141,7 +151,7 @@ class MinHeap:
         # if not self.isLeaf(index):
         #     if (self.Heap[index].key > self.Heap[self.leftChild(index)].key or self.Heap[index].key > self.Heap[self.rightChild(index)].key):
                 #call swap
-
+        # self.my_minHeap()
 
     def heap_down(self, index):
         """ This helper method takes an index and 
@@ -149,25 +159,49 @@ class MinHeap:
             larger than either of its children and continues until
             the heap property is reestablished.
         """
-        # If the node is a non-leaf node and greater
+        # If the node is a non-leaf (not a leaf) node and greater
         # than any of its child -- if it is a parent then
         #check right child if exists and check it's index and see if it is greater than or = the store.size 
-        if not self.isLeaf(index):
-            if self.rightChild(index) != None:
 
-                if (self.store[index].key > self.store[self.leftChild(index)].key or self.store[index].key > self.store[self.rightChild(index)].key):
+        #keep looping while given index current = index > value of it's children so check both children
+        current = index
+        # check if current if a leaf node
+
+        hasLeftChild =  self.leftChild(current) is not None
+        hasRightChild =  self.rightChild(current) is not None
+
+        # leftChildSmaller = self.store[current].key > self.store[self.leftChild(current)].key
+        # rightChildSmaller = self.store[current].key > self.store[self.rightChild(current)].key
+
+        while (hasLeftChild and (self.store[current].key > self.store[self.leftChild(current)].key)) or (hasRightChild and (self.store[current].key > self.store[self.rightChild(current)].key)):
+            if self.store[current].key > self.store[self.leftChild(current)].key:
+                self.swap(current, self.leftChild(current))
+                current = self.leftChild(current)
+            elif self.store[current].key > self.store[self.rightChild(current)].key:
+                self.swap(current, self.rightChild(current))
+                current = self.rightChild(current)
+            hasLeftChild =  self.leftChild(current) is not None
+            hasRightChild =  self.rightChild(current) is not None
+
+    
+        # if not self.isLeaf(index):
+        #     #if right child has a value
+        #     if self.rightChild(index) != None:
+
+
+        #         if (self.store[index].key > self.store[self.leftChild(index)].key or self.store[index].key > self.store[self.rightChild(index)].key):
                 
-                # Swap with the left child and heapify
-                # the left child
-                    if self.store[self.leftChild(index)].key < self.store[self.rightChild(index)].key:
-                        self.swap(index, self.leftChild(index))
-                        self.heap_down(self.leftChild(index))
+        #         # Swap with the left child and heapify
+        #         # the left child
+        #             if self.store[self.leftChild(index)].key > self.store[self.rightChild(index)].key:
+        #                 self.swap(index, self.leftChild(index))
+        #                 self.heap_down(self.leftChild(index))
 
-                    # Swap with the right child and heapify
-                    # the right child
-                    else:
-                        self.swap(index, self.rightChild(index))
-                        self.heap_down(self.rightChild(index))
+        #             # Swap with the right child and heapify
+        #             # the right child
+        #             else:
+        #                 self.swap(index, self.rightChild(index))
+        #                 self.heap_down(self.rightChild(index))
 
 
 
@@ -186,8 +220,10 @@ class MinHeap:
 
     # Function to build the min heap using
     # the minHeapify function
+    # range(start, stop[, step])
     def my_minHeap(self):
 
         for pos in range(self.size // 2, 0, -1):
             self.heap_down(pos)
-
+    
+    
