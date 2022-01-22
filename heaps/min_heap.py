@@ -33,7 +33,7 @@ class MinHeap:
         if value == None:
             value = key
         node = HeapNode(key, value)
-        str(node.value)
+        print(node)
 
         
          # Need to increment size  
