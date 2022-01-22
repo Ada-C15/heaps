@@ -1,6 +1,9 @@
 # from tests.test_min_heap import heap
 
 
+from lib2to3.pytree import Node
+
+
 class HeapNode:
   
     def __init__(self, key, value):
@@ -13,11 +16,6 @@ class HeapNode:
     def __repr__(self):
         return str(self.value)
 
-# 	https://github.com/Ada-C15/heaps
-
-#   https://www.geeksforgeeks.org/min-heap-in-python/
-#   https://www.educative.io/edpresso/what-is-the-repr-method-in-python
-
 class MinHeap:
 
     def __init__(self):
@@ -29,14 +27,14 @@ class MinHeap:
     def add(self, key, value = None):
         """ This method adds a HeapNode instance to the heap
             If value == None the new node's value should be set to key
-            Time Complexity: ?
-            Space Complexity: ?
+            Time Complexity: O(1)   not counting heap_up
+            Space Complexity: O(1) not counting heap_up
         """
         if value == None:
             value = key
         node = HeapNode(key, value)
+        str(node.value)
 
-    
         
          # Need to increment size  
         self.store.insert(self.size, node)
@@ -44,26 +42,22 @@ class MinHeap:
         
         # use self when referring to method or attribute of the class
         self.heap_up(self.size-1)
-        #self.heap_up(self.size-1)
-        # self.heap_up(len(self.store)-1)
          
 
     def remove(self):
         """ This method removes and returns an element from the heap
             maintaining the heap structure
-            Time Complexity: ?
-            Space Complexity: ?
+            Time Complexity: O(1)   not counting heap_down
+            Space Complexity: O(1) not counting heap_down
         """
 
         # take copy first
         # copy last one to position 1
         # modify size 
-        #heapify
-        # if len(self.store)== 0:
-        #     return None
+        # heapify
+        
         if self.empty() == True:
             return None
-        # self.swap(0,len(self.store) -1)
         
         min = self.store[self.FRONT]
 
@@ -74,8 +68,6 @@ class MinHeap:
         return min.value
 
 
-
-    
     def __str__(self):
         """ This method lets you print the heap, when you're testing your app.
         """
@@ -86,8 +78,8 @@ class MinHeap:
 
     def empty(self):
         """ This method returns true if the heap is empty
-            Time complexity: ?
-            Space complexity: ?
+            Time complexity: O(1)
+            Space complexity: O(1)
         """
         if len(self.store)== 0:
             return True
@@ -129,8 +121,6 @@ class MinHeap:
         return False
 
     
- 
-
 
     def heap_up(self, index):
         """ This helper method takes an index and
@@ -139,8 +129,8 @@ class MinHeap:
             property is reestablished.
             
             This could be **very** helpful for the add method.
-            Time complexity: ?
-            Space complexity: ?
+            Time complexity: log(n) only takes one path
+            Space complexity: O(1) not creating anything
         """
         #self.store[index] value for the new node that we are adding
         #self.parent(index) is the value of the current parent/leaf - that may have its first child or second if child is smaller we need to swap
@@ -148,16 +138,16 @@ class MinHeap:
         while self.store[current].key < self.store[self.parent(current)].key:
             self.swap(current, self.parent(current))
             current = self.parent(current)
-        # if not self.isLeaf(index):
-        #     if (self.Heap[index].key > self.Heap[self.leftChild(index)].key or self.Heap[index].key > self.Heap[self.rightChild(index)].key):
-                #call swap
-        # self.my_minHeap()
-
+            # I don't think I am checking the whether the right key is bigger than the left.  
+            
     def heap_down(self, index):
         """ This helper method takes an index and 
             moves the corresponding element down the heap if it's 
             larger than either of its children and continues until
             the heap property is reestablished.
+
+            Time complexity: log(n) only takes one path
+            Space complexity: O(1) not creating anything
         """
         # If the node is a non-leaf (not a leaf) node and greater
         # than any of its child -- if it is a parent then
@@ -170,40 +160,26 @@ class MinHeap:
         hasLeftChild =  self.leftChild(current) is not None
         hasRightChild =  self.rightChild(current) is not None
 
-        # leftChildSmaller = self.store[current].key > self.store[self.leftChild(current)].key
-        # rightChildSmaller = self.store[current].key > self.store[self.rightChild(current)].key
+
+        #see if it has both children
+        #compare and swap with the smaller
 
         while (hasLeftChild and (self.store[current].key > self.store[self.leftChild(current)].key)) or (hasRightChild and (self.store[current].key > self.store[self.rightChild(current)].key)):
-            if self.store[current].key > self.store[self.leftChild(current)].key:
+            if hasLeftChild and hasRightChild:
+                if self.store[self.leftChild(current)].key > self.store[self.rightChild(current)].key: 
+                    self.swap(current, self.rightChild(current))
+                    current = self.rightChild(current)
+                else:
+                    self.swap(current, self.leftChild(current))
+                    current = self.leftChild(current)
+
+            else:
                 self.swap(current, self.leftChild(current))
                 current = self.leftChild(current)
-            elif self.store[current].key > self.store[self.rightChild(current)].key:
-                self.swap(current, self.rightChild(current))
-                current = self.rightChild(current)
+                print('left child:', current)
+           
             hasLeftChild =  self.leftChild(current) is not None
             hasRightChild =  self.rightChild(current) is not None
-
-    
-        # if not self.isLeaf(index):
-        #     #if right child has a value
-        #     if self.rightChild(index) != None:
-
-
-        #         if (self.store[index].key > self.store[self.leftChild(index)].key or self.store[index].key > self.store[self.rightChild(index)].key):
-                
-        #         # Swap with the left child and heapify
-        #         # the left child
-        #             if self.store[self.leftChild(index)].key > self.store[self.rightChild(index)].key:
-        #                 self.swap(index, self.leftChild(index))
-        #                 self.heap_down(self.leftChild(index))
-
-        #             # Swap with the right child and heapify
-        #             # the right child
-        #             else:
-        #                 self.swap(index, self.rightChild(index))
-        #                 self.heap_down(self.rightChild(index))
-
-
 
     
     def swap(self, index_1, index_2):
