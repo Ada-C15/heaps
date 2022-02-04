@@ -20,7 +20,7 @@ class MinHeap:
         """ This method adds a HeapNode instance to the heap
             If value == None the new node's value should be set to key
             Time Complexity: O(log n)
-            Space Complexity: O(1)? O(log n)?
+            Space Complexity: O(log n)
         """
         if value == None:
             value = key
@@ -86,16 +86,16 @@ class MinHeap:
             than it's parent node.
         """
         children = index * 2 + 1
-        lefty = children
-        poncho = children + 1
-        if lefty < len(self.store):
-            if poncho < len(self.store):
-                if self.store[lefty].key < self.store[poncho].key:
-                    smol = lefty
+        left = children
+        right = children + 1
+        if left < len(self.store):
+            if right < len(self.store):
+                if self.store[left].key < self.store[right].key:
+                    smol = left
                 else:
-                    smol = poncho
+                    smol = right
             else:
-                smol = lefty
+                smol = left
             
             if self.store[index].key > self.store[smol].key:
                 self.swap(index, smol)
