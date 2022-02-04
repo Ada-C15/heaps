@@ -2,8 +2,8 @@ from heaps.min_heap import MinHeap
 
 def heap_sort(list):
     """ 
-        Time Complexity:  O(n log n)?
-        Space Complexitty: O(n)?
+        Time Complexity:  O(n log n)
+        Space Complexitty: O(n)
     """
     listless = MinHeap()
     sorts= []
